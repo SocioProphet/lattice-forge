@@ -1,0 +1,47 @@
+{
+  "apiVersion": "lattice.socioprophet.dev/v0",
+  "kind": "RuntimeAsset",
+  "metadata": {
+    "name": "prophet-python-ml",
+    "version": "0.1.0",
+    "createdAt": "2026-04-26T00:00:00Z"
+  },
+  "spec": {
+    "runtimeClass": "notebook",
+    "languages": ["python"],
+    "channels": [
+      {"name": "nixpkgs", "type": "nixpkgs", "trusted": true},
+      {"name": "conda-forge", "type": "conda-forge", "trusted": true},
+      {"name": "prophet-core", "type": "prophet", "trusted": true}
+    ],
+    "build": {
+      "system": "mixed",
+      "entrypoint": "runtimes/prophet-python-ml/flake.nix",
+      "lockfile": "runtimes/prophet-python-ml/flake.lock",
+      "sourceRef": "local"
+    },
+    "artifacts": [
+      {
+        "name": "prophet-python-ml-image",
+        "role": "oci-image",
+        "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      {
+        "name": "prophet-python-ml-sbom",
+        "role": "sbom",
+        "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      }
+    ],
+    "provenance": {
+      "sbomRequired": true,
+      "signatureRequired": true,
+      "evidenceReports": ["lockfile-hash", "sbom-ref", "image-digest", "package-manifest", "scan-result", "signature", "builder-id"]
+    },
+    "policy": {
+      "network": "restricted",
+      "secrets": "scoped",
+      "accelerators": ["cpu"],
+      "defaultIsolation": "container"
+    }
+  }
+}
