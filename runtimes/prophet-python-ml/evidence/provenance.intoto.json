@@ -1,0 +1,32 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "prophet-python-ml",
+      "digest": {
+        "sha256": "7777777777777777777777777777777777777777777777777777777777777777"
+      }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "https://socioprophet.dev/lattice-forge/nix-runtime/v1",
+      "externalParameters": {
+        "entrypoint": "runtimes/prophet-python-ml/flake.nix",
+        "runtimeAsset": "runtimes/prophet-python-ml/runtime-asset.json"
+      },
+      "internalParameters": {}
+    },
+    "runDetails": {
+      "builder": {
+        "id": "lattice-forge-nix-builder"
+      },
+      "metadata": {
+        "invocationId": "placeholder-local-demo",
+        "startedOn": "2026-04-26T00:00:00Z",
+        "finishedOn": "2026-04-26T00:00:00Z"
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "prophet-python-ml-runtime-sbom-placeholder",
+  "documentNamespace": "https://example.invalid/spdx/prophet-python-ml/0.1.0",
+  "creationInfo": {
+    "created": "2026-04-26T00:00:00Z",
+    "creators": ["Organization: SocioProphet", "Tool: lattice-forge-placeholder"]
+  },
+  "packages": [
+    {
+      "name": "prophet-python-ml",
+      "SPDXID": "SPDXRef-Package-prophet-python-ml",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-prophet-python-ml"
+    }
+  ]
+}
