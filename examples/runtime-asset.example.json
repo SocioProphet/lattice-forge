@@ -1,5 +1,5 @@
 {
-  "apiVersion": "lattice.socioprophet.dev/v0",
+  "apiVersion": "lattice.socioprophet.dev/v1",
   "kind": "RuntimeAsset",
   "metadata": {
     "name": "prophet-python-ml",
@@ -18,30 +18,31 @@
       "system": "mixed",
       "entrypoint": "runtimes/prophet-python-ml/flake.nix",
       "lockfile": "runtimes/prophet-python-ml/flake.lock",
-      "sourceRef": "local"
+      "sourceRef": "local",
+      "builderId": "lattice-forge-demo-builder"
     },
     "artifacts": [
-      {
-        "name": "prophet-python-ml-image",
-        "role": "oci-image",
-        "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
-      },
-      {
-        "name": "prophet-python-ml-sbom",
-        "role": "sbom",
-        "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
-      }
+      {"name": "runtime-image", "role": "oci-image", "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"},
+      {"name": "runtime-sbom", "role": "sbom", "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"}
     ],
     "provenance": {
-      "sbomRequired": true,
-      "signatureRequired": true,
-      "evidenceReports": ["lockfile-hash", "sbom-ref", "image-digest", "package-manifest", "scan-result", "signature", "builder-id"]
+      "attestations": ["slsa", "in-toto"],
+      "sourceRefs": ["local-source-ref"],
+      "builderId": "lattice-forge-demo-builder"
     },
-    "policy": {
-      "network": "restricted",
-      "secrets": "scoped",
-      "accelerators": ["cpu"],
-      "defaultIsolation": "container"
-    }
+    "sbom": {
+      "formats": ["spdx", "cyclonedx"],
+      "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    },
+    "signature": {
+      "type": "sigstore",
+      "bundleRef": "demo-bundle",
+      "digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+    },
+    "scan": {"vulnerability": "pass", "license": "pass", "policy": "pass"},
+    "policy": {"network": "restricted", "secrets": "scoped", "accelerators": ["cpu"], "defaultIsolation": "container"},
+    "compatibility": {"surfaces": ["jupyter", "ray", "beam", "agentplane", "sourceos-user", "prophet-platform"]},
+    "telemetry": {"traceRequired": true, "metricSet": ["build-duration", "scan-duration", "artifact-size", "promotion-result"]},
+    "promotion": {"channel": "dev", "rollbackRef": "runtime/prophet-python-ml/0.0.1"}
   }
 }

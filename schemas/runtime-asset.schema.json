@@ -1,105 +1,32 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schemas.socioprophet.dev/lattice-forge/runtime-asset.v0.schema.json",
-  "title": "RuntimeAsset v0",
+  "$id": "https://schemas.socioprophet.dev/lattice-forge/runtime-asset.v1.schema.json",
+  "title": "RuntimeAsset v1",
   "type": "object",
   "additionalProperties": false,
   "required": ["apiVersion", "kind", "metadata", "spec"],
   "properties": {
-    "apiVersion": {"const": "lattice.socioprophet.dev/v0"},
+    "apiVersion": {"const": "lattice.socioprophet.dev/v1"},
     "kind": {"const": "RuntimeAsset"},
-    "metadata": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["name", "version", "createdAt"],
-      "properties": {
-        "name": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{1,62}$"},
-        "version": {"type": "string", "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+([-.+][A-Za-z0-9.-]+)?$"},
-        "createdAt": {"type": "string", "format": "date-time"},
-        "labels": {"type": "object", "additionalProperties": {"type": "string"}}
-      }
-    },
+    "metadata": {"type": "object", "additionalProperties": false, "required": ["name", "version", "createdAt"], "properties": {"name": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{1,62}$"}, "version": {"type": "string", "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+([-.+][A-Za-z0-9.-]+)?$"}, "createdAt": {"type": "string", "format": "date-time"}, "labels": {"type": "object", "additionalProperties": {"type": "string"}}}},
     "spec": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["runtimeClass", "languages", "build", "artifacts", "provenance", "policy"],
+      "required": ["runtimeClass", "languages", "build", "artifacts", "provenance", "sbom", "signature", "scan", "policy", "compatibility", "telemetry", "promotion"],
       "properties": {
-        "runtimeClass": {
-          "type": "string",
-          "enum": ["notebook", "agent", "ray", "beam", "cli", "system-tool", "base-image"]
-        },
-        "languages": {
-          "type": "array",
-          "items": {"enum": ["python", "r", "go", "rust", "javascript", "typescript", "shell", "sql"]},
-          "minItems": 1,
-          "uniqueItems": true
-        },
-        "channels": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["name", "type"],
-            "properties": {
-              "name": {"type": "string"},
-              "type": {"enum": ["nixpkgs", "conda-forge", "prophet", "pypi", "go-module", "oci", "other"]},
-              "uri": {"type": "string"},
-              "trusted": {"type": "boolean"}
-            }
-          }
-        },
-        "build": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["system", "entrypoint"],
-          "properties": {
-            "system": {"enum": ["nix", "conda-lock", "oci", "script", "mixed"]},
-            "entrypoint": {"type": "string"},
-            "lockfile": {"type": "string"},
-            "sourceRef": {"type": "string"}
-          }
-        },
-        "artifacts": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["name", "role", "digest"],
-            "properties": {
-              "name": {"type": "string"},
-              "role": {"enum": ["nix-closure", "conda-env", "oci-image", "kernel-spec", "sbom", "lockfile", "signature", "archive", "other"]},
-              "digest": {"type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$"},
-              "uri": {"type": "string"},
-              "mediaType": {"type": "string"}
-            }
-          }
-        },
-        "provenance": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["sbomRequired", "signatureRequired", "evidenceReports"],
-          "properties": {
-            "sbomRequired": {"type": "boolean"},
-            "signatureRequired": {"type": "boolean"},
-            "evidenceReports": {
-              "type": "array",
-              "items": {"enum": ["lockfile-hash", "sbom-ref", "image-digest", "package-manifest", "scan-result", "signature", "builder-id"]},
-              "uniqueItems": true
-            }
-          }
-        },
-        "policy": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["network", "secrets", "accelerators", "defaultIsolation"],
-          "properties": {
-            "network": {"enum": ["none", "restricted", "full"]},
-            "secrets": {"enum": ["none", "scoped", "project", "workspace"]},
-            "accelerators": {"type": "array", "items": {"enum": ["cpu", "gpu", "neural-engine", "tpu"]}, "uniqueItems": true},
-            "defaultIsolation": {"enum": ["container", "vm", "layered", "microvm"]}
-          }
-        }
+        "runtimeClass": {"enum": ["notebook", "agent", "ray", "beam", "cli", "system-tool", "base-image"]},
+        "languages": {"type": "array", "items": {"enum": ["python", "r", "go", "rust", "javascript", "typescript", "shell", "sql"]}, "minItems": 1, "uniqueItems": true},
+        "channels": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["name", "type"], "properties": {"name": {"type": "string"}, "type": {"enum": ["nixpkgs", "conda-forge", "prophet", "pypi", "go-module", "oci", "other"]}, "uri": {"type": "string"}, "trusted": {"type": "boolean"}}}},
+        "build": {"type": "object", "additionalProperties": false, "required": ["system", "entrypoint", "builderId"], "properties": {"system": {"enum": ["nix", "conda-lock", "oci", "script", "mixed"]}, "entrypoint": {"type": "string"}, "lockfile": {"type": "string"}, "sourceRef": {"type": "string"}, "builderId": {"type": "string"}}},
+        "artifacts": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["name", "role", "digest"], "properties": {"name": {"type": "string"}, "role": {"enum": ["nix-closure", "conda-env", "oci-image", "kernel-spec", "sbom", "lockfile", "signature", "attestation", "scan-report", "archive", "other"]}, "digest": {"type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$"}, "uri": {"type": "string"}, "mediaType": {"type": "string"}}}},
+        "provenance": {"type": "object", "additionalProperties": false, "required": ["attestations", "sourceRefs", "builderId"], "properties": {"attestations": {"type": "array", "items": {"enum": ["slsa", "in-toto"]}, "minItems": 1, "uniqueItems": true}, "sourceRefs": {"type": "array", "items": {"type": "string"}, "minItems": 1}, "builderId": {"type": "string"}}},
+        "sbom": {"type": "object", "additionalProperties": false, "required": ["formats", "digest"], "properties": {"formats": {"type": "array", "items": {"enum": ["spdx", "cyclonedx"]}, "minItems": 1, "uniqueItems": true}, "digest": {"type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$"}, "uri": {"type": "string"}}},
+        "signature": {"type": "object", "additionalProperties": false, "required": ["type", "digest"], "properties": {"type": {"enum": ["sigstore", "cosign", "minisign", "x509", "other"]}, "bundleRef": {"type": "string"}, "digest": {"type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$"}}},
+        "scan": {"type": "object", "additionalProperties": false, "required": ["vulnerability", "license", "policy"], "properties": {"vulnerability": {"enum": ["not-run", "pass", "warn", "fail"]}, "license": {"enum": ["not-run", "pass", "warn", "fail"]}, "policy": {"enum": ["not-run", "pass", "warn", "fail"]}}},
+        "policy": {"type": "object", "additionalProperties": false, "required": ["network", "secrets", "accelerators", "defaultIsolation"], "properties": {"network": {"enum": ["none", "restricted", "full"]}, "secrets": {"enum": ["none", "scoped", "project", "workspace"]}, "accelerators": {"type": "array", "items": {"enum": ["cpu", "gpu", "neural-engine", "tpu"]}, "uniqueItems": true}, "defaultIsolation": {"enum": ["container", "vm", "layered", "microvm"]}}},
+        "compatibility": {"type": "object", "additionalProperties": false, "required": ["surfaces"], "properties": {"surfaces": {"type": "array", "items": {"enum": ["jupyter", "ray", "beam", "agentplane", "sourceos-user", "sourceos-agent", "cloudshell-fog", "prophet-platform"]}, "minItems": 1, "uniqueItems": true}}},
+        "telemetry": {"type": "object", "additionalProperties": false, "required": ["traceRequired", "metricSet"], "properties": {"traceRequired": {"type": "boolean"}, "metricSet": {"type": "array", "items": {"enum": ["build-duration", "scan-duration", "artifact-size", "promotion-result"]}, "uniqueItems": true}}},
+        "promotion": {"type": "object", "additionalProperties": false, "required": ["channel", "rollbackRef"], "properties": {"channel": {"enum": ["dev", "staging", "stable", "emergency", "deprecated"]}, "rollbackRef": {"type": "string"}, "expiresAt": {"type": "string", "format": "date-time"}}}
       }
     }
   }
