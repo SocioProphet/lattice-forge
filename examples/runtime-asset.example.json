@@ -8,7 +8,7 @@
   },
   "spec": {
     "runtimeClass": "notebook",
-    "languages": ["python"],
+    "languages": ["python", "javascript", "sql"],
     "channels": [
       {"name": "nixpkgs", "type": "nixpkgs", "trusted": true},
       {"name": "conda-forge", "type": "conda-forge", "trusted": true},
@@ -41,7 +41,21 @@
     },
     "scan": {"vulnerability": "pass", "license": "pass", "policy": "pass"},
     "policy": {"network": "restricted", "secrets": "scoped", "accelerators": ["cpu"], "defaultIsolation": "container"},
-    "compatibility": {"surfaces": ["jupyter", "ray", "beam", "agentplane", "sourceos-user", "prophet-platform"]},
+    "compatibility": {
+      "surfaces": [
+        "jupyter",
+        "jupyterlab",
+        "zeppelin",
+        "observable",
+        "quarto",
+        "lattice-studio",
+        "ray",
+        "beam",
+        "agentplane",
+        "sourceos-user",
+        "prophet-platform"
+      ]
+    },
     "telemetry": {"traceRequired": true, "metricSet": ["build-duration", "scan-duration", "artifact-size", "promotion-result"]},
     "promotion": {"channel": "dev", "rollbackRef": "runtime/prophet-python-ml/0.0.1"}
   }
