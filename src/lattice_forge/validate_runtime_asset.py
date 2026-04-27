@@ -30,7 +30,22 @@ NETWORK = {"none", "restricted", "full"}
 SECRET_SCOPES = {"none", "scoped", "project", "workspace"}
 ACCELERATORS = {"cpu", "gpu", "neural-engine", "tpu"}
 ISOLATION = {"container", "vm", "layered", "microvm"}
-SURFACES = {"jupyter", "ray", "beam", "agentplane", "sourceos-user", "sourceos-agent", "cloudshell-fog", "prophet-platform"}
+SURFACES = {
+    "jupyter",  # legacy alias retained for existing RuntimeAsset payloads
+    "jupyterlab",
+    "zeppelin",
+    "observable",
+    "plutojl",
+    "quarto",
+    "lattice-studio",
+    "ray",
+    "beam",
+    "agentplane",
+    "sourceos-user",
+    "sourceos-agent",
+    "cloudshell-fog",
+    "prophet-platform",
+}
 METRICS = {"build-duration", "scan-duration", "artifact-size", "promotion-result"}
 CHANNELS = {"dev", "staging", "stable", "emergency", "deprecated"}
 
