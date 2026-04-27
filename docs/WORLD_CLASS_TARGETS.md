@@ -29,10 +29,15 @@ Lattice Forge must align with these target classes:
    - GPU/accelerator support must be explicit and auditable.
 
 5. **Notebook and MLOps integration**
-   - Jupyter kernels must be first-class artifacts.
+   - Notebook runtimes must be adapter-based and must not hard-code Jupyter as the ontology.
+   - Jupyter/JupyterLab kernels must remain first-class artifacts.
+   - Apache Zeppelin runtime compatibility must be modeled for collaborative analytics, Spark, SQL, Scala, Python, and R workflows.
+   - Observable runtime compatibility must be modeled for browser-native reactive visualization and data storytelling.
+   - Pluto.jl runtime compatibility must be modeled for Julia/reactive scientific notebook workflows.
+   - Quarto runtime compatibility must be modeled for reproducible technical publishing, dashboards, books, slides, and notebook-derived reports.
    - Ray runtime environments must be cataloged and evidence-producing.
    - Beam runtime profiles must be cataloged and evidence-producing.
-   - Runtime use must link to NotebookSession, ExperimentRun, PipelineRun, ModelAsset, AgentAsset, and EvidenceBundle objects.
+   - Runtime use must link to NotebookSession, NotebookSurfacePlane, ExperimentRun, PipelineRun, ModelAsset, AgentAsset, and EvidenceBundle objects.
 
 6. **Catalog integration**
    - RuntimeAsset must be consumable by Prophet Platform as a governed catalog object.
@@ -60,32 +65,49 @@ A Lattice runtime is not valid unless it can answer:
 - which SBOM describes it;
 - which policy allows it;
 - which signature proves it;
+- which notebook, agent, Ray, Beam, shell, or platform surface can consume it;
 - where it was used;
 - and how to reproduce or roll it back.
 
+## Current notebook surface contract
+
+`RuntimeAsset.spec.compatibility.surfaces` must support the Lattice Studio adapter plane. The required notebook/workbench surface set is:
+
+- `jupyter` as the legacy compatibility alias for existing runtime payloads.
+- `jupyterlab` as the default scientific notebook adapter.
+- `zeppelin` for collaborative analytics and data-lake/Spark/SQL workflows.
+- `observable` for browser-native reactive visualization and data storytelling.
+- `plutojl` for Julia/reactive scientific computing.
+- `quarto` for reproducible technical publishing and notebook-derived reports.
+- `lattice-studio` for the governed workbench surface that binds RuntimeAsset, NotebookSession, catalog inputs, policies, and evidence.
+
+Producer-side tests in this repo and consumer-side tests in `SocioProphet/prophet-platform` must prevent the notebook adapter set from drifting out of sync.
+
 ## Contract upgrades required
 
-RuntimeAsset v1 must add:
+RuntimeAsset v1 must add or preserve:
 
 - `provenance`: SLSA/in-toto references, builder identity, source commits, resolved inputs.
 - `sbom`: SPDX/CycloneDX references and digest fields.
 - `signature`: Sigstore/cosign bundle or production signing reference.
 - `scan`: vulnerability, license, and policy scan summaries.
-- `compatibility`: notebook, Ray, Beam, agent, SourceOS user-plane, SourceOS agent-plane compatibility.
+- `compatibility`: Jupyter/JupyterLab, Zeppelin, Observable, Pluto.jl, Quarto, Lattice Studio, Ray, Beam, agent, SourceOS user-plane, SourceOS agent-plane compatibility.
 - `telemetry`: OpenTelemetry trace context and evidence correlation IDs.
 - `promotion`: channel, approvals, expiry, deprecation, rollback target.
 
 ## Implementation path
 
-1. Keep v0 validator simple and stable.
+1. Keep v1 validator simple and stable.
 2. Add Nix flake runtime scaffold.
 3. Add conda-compatible environment lock convention.
 4. Add SBOM manifest schema.
 5. Add SLSA/in-toto provenance references.
 6. Add Sigstore/cosign bundle references.
-7. Add Jupyter kernel package stub.
-8. Add Ray and Beam runtime profiles.
-9. Add RuntimeAsset evidence emitter.
+7. Add JupyterLab kernel package stub.
+8. Add Zeppelin, Observable, Pluto.jl, and Quarto adapter runtime descriptors.
+9. Add Ray and Beam runtime profiles.
+10. Add RuntimeAsset evidence emitter.
+11. Add cross-repo fixture drift checks against Prophet Platform/Lattice Studio.
 
 ## Doctrine
 
