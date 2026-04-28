@@ -1,0 +1,50 @@
+{
+  "candidate_version": "v1",
+  "runtime_id": "runtime:ais-ingest:v0",
+  "runtime_name": "gaia-ais-ingest-runtime",
+  "admission_state": "candidate",
+  "admitted": false,
+  "owning_domain": "GAIA maritime domain awareness / vessel-track ingestion",
+  "implementation_repo": "SocioProphet/gaia-world-model",
+  "entrypoint": "multidomain/ais_ingest.py",
+  "validation_command": "python3 multidomain/ais_ingest.py fixtures/multidomain/ais-message-input.sample.v1.json /tmp/gaia-ais-ingest-output.json",
+  "ci_workflow_ref": "SocioProphet/gaia-world-model:.github/workflows/multidomain-runtime.yml",
+  "input_fixture_ref": "SocioProphet/gaia-world-model:fixtures/multidomain/ais-message-input.sample.v1.json",
+  "output_schema_ref": "SocioProphet/gaia-world-model:schemas/multidomain/vessel_track_observation.v1.schema.json",
+  "runtime_boundary_ref": "SocioProphet/gaia-world-model:docs/integrations/RUNTIME_BOUNDARY_AIS_INGEST.md",
+  "standards_refs": [
+    "SocioProphet/prophet-platform-standards/docs/standards/070-multidomain-geospatial-standards-alignment.md",
+    "SocioProphet/socioprophet-standards-storage/docs/standards/096-multidomain-geospatial-storage-contracts.md",
+    "SocioProphet/socioprophet-standards-knowledge/docs/standards/080-multidomain-geospatial-knowledge-context.md",
+    "SocioProphet/socioprophet-agent-standards/docs/standards/020-multidomain-geospatial-agent-runtime.md"
+  ],
+  "evidence_contract": {
+    "emits_runtime_evidence": true,
+    "input_manifest": true,
+    "output_manifest": true,
+    "input_hash": "sha256",
+    "output_hash": "sha256",
+    "policy_posture": true,
+    "replay_command": true
+  },
+  "negative_tests": [
+    "fixtures/multidomain/negative/ais-message-wrong-source.sample.v1.json",
+    "fixtures/multidomain/negative/ais-message-bad-lat.sample.v1.json"
+  ],
+  "remaining_admission_requirements": [
+    "package runtime bundle",
+    "generate SBOM",
+    "sign runtime artifact",
+    "define rollback test",
+    "define malformed-input corpus beyond two seed cases",
+    "define live AIS feed network-enabled runtime profile separately",
+    "confirm Agentplane approval/evidence/replay integration",
+    "confirm SocioSphere remote compliance gate"
+  ],
+  "safety_boundary": {
+    "network_posture": "none_for_fixture_proof",
+    "secret_posture": "none_for_fixture_proof",
+    "sensitive_geo_handling": "preserve_policy_ref",
+    "notes": "This is a deterministic fixture proof. It is not a live AIS receiver, not an enforcement workflow, and not admitted as a packaged Lattice runtime."
+  }
+}
