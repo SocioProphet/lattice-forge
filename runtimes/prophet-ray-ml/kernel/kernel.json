@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "python",
+    "-m",
+    "ipykernel_launcher",
+    "-f",
+    "{connection_file}"
+  ],
+  "display_name": "Prophet Ray ML",
+  "language": "python",
+  "metadata": {
+    "runtimeAsset": "prophet-ray-ml@0.1.0",
+    "governance": {
+      "evidenceRequired": true,
+      "policyProfile": "dev",
+      "defaultIsolation": "container"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "python",
+    "-m",
+    "ipykernel_launcher",
+    "-f",
+    "{connection_file}"
+  ],
+  "display_name": "Prophet Beam DataOps",
+  "language": "python",
+  "metadata": {
+    "runtimeAsset": "prophet-beam-dataops@0.1.0",
+    "governance": {
+      "evidenceRequired": true,
+      "policyProfile": "dev",
+      "defaultIsolation": "container"
+    }
+  }
+}

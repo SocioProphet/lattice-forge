@@ -1,0 +1,22 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "prophet-beam-dataops-runtime-sbom-placeholder",
+  "documentNamespace": "https://example.invalid/spdx/prophet-beam-dataops/0.1.0",
+  "creationInfo": {
+    "created": "2026-05-01T19:00:00Z",
+    "creators": ["Organization: SocioProphet", "Tool: lattice-forge-placeholder"]
+  },
+  "packages": [
+    {
+      "name": "prophet-beam-dataops",
+      "SPDXID": "SPDXRef-Package-prophet-beam-dataops",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ]
+}
