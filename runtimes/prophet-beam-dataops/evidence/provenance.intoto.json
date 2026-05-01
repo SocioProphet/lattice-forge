@@ -1,0 +1,32 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "prophet-beam-dataops",
+      "digest": {
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "https://socioprophet.dev/lattice-forge/beam-runtime/v1",
+      "externalParameters": {
+        "entrypoint": "runtimes/prophet-beam-dataops/flake.nix",
+        "runtimeAsset": "build/runtime-assets/prophet-beam-dataops.runtime-asset.json"
+      },
+      "internalParameters": {}
+    },
+    "runDetails": {
+      "builder": {
+        "id": "lattice-forge-demo-builder"
+      },
+      "metadata": {
+        "invocationId": "placeholder-beam-demo",
+        "startedOn": "2026-05-01T19:00:00Z",
+        "finishedOn": "2026-05-01T19:00:00Z"
+      }
+    }
+  }
+}
