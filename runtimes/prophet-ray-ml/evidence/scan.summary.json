@@ -1,0 +1,13 @@
+{
+  "runtimeAsset": "prophet-ray-ml@0.1.0",
+  "generatedAt": "2026-05-01T19:00:00Z",
+  "status": {
+    "vulnerability": "not-run",
+    "license": "not-run",
+    "policy": "not-run"
+  },
+  "notes": [
+    "Placeholder scan summary. Real scanner integration must replace this before stable promotion.",
+    "RuntimeAsset promotion channel remains dev until scan evidence is produced."
+  ]
+}
