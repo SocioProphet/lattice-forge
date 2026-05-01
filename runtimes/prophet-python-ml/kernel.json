@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "python",
+    "-m",
+    "ipykernel_launcher",
+    "-f",
+    "{connection_file}"
+  ],
+  "display_name": "Prophet Python ML 0.1.0",
+  "language": "python",
+  "metadata": {
+    "runtimeAssetId": "runtime-asset:prophet-python-ml:0.1.0",
+    "policyRef": "policy://runtime/prophet-python-ml-demo",
+    "surfaces": ["jupyter", "jupyterlab", "lattice-studio"]
+  }
+}
