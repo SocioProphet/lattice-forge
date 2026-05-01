@@ -1,0 +1,32 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "prophet-ray-ml",
+      "digest": {
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    }
+  ],
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "https://socioprophet.dev/lattice-forge/ray-runtime/v1",
+      "externalParameters": {
+        "entrypoint": "runtimes/prophet-ray-ml/flake.nix",
+        "runtimeAsset": "build/runtime-assets/prophet-ray-ml.runtime-asset.json"
+      },
+      "internalParameters": {}
+    },
+    "runDetails": {
+      "builder": {
+        "id": "lattice-forge-demo-builder"
+      },
+      "metadata": {
+        "invocationId": "placeholder-ray-demo",
+        "startedOn": "2026-05-01T19:00:00Z",
+        "finishedOn": "2026-05-01T19:00:00Z"
+      }
+    }
+  }
+}
