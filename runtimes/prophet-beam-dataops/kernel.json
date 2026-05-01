@@ -1,0 +1,10 @@
+{
+  "argv": ["python", "-m", "ipykernel_launcher", "-f", "{connection_file}"],
+  "display_name": "Prophet Beam DataOps 0.1.0",
+  "language": "python",
+  "metadata": {
+    "runtimeAssetId": "runtime-asset:prophet-beam-dataops:0.1.0",
+    "policyRef": "policy://runtime/prophet-beam-dataops-demo",
+    "surfaces": ["jupyter", "jupyterlab", "lattice-studio", "beam"]
+  }
+}
