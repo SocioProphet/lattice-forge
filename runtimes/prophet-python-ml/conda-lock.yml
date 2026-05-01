@@ -1,0 +1,17 @@
+# Conda-compatible lock placeholder for prophet-python-ml.
+# This file intentionally uses open channels and is hashable by the RuntimeAsset emitter.
+channels:
+  - conda-forge
+platforms:
+  - linux-64
+  - linux-aarch64
+  - osx-arm64
+packages:
+  - python=3.11
+  - ipykernel
+  - numpy
+  - pandas
+  - pyarrow
+  - scikit-learn
+  - jupyterlab
+  - duckdb
