@@ -1,6 +1,6 @@
-.PHONY: validate runtime-candidates-validate runtime-asset-emit runtime-asset-validate runtime-sidecars-validate
+.PHONY: validate runtime-candidates-validate runtime-asset-emit runtime-asset-validate runtime-sidecars-validate runtime-promotion-manifest-emit runtime-promotion-manifest-validate
 
-validate: runtime-candidates-validate runtime-asset-validate runtime-sidecars-validate
+validate: runtime-candidates-validate runtime-asset-validate runtime-sidecars-validate runtime-promotion-manifest-validate
 	@echo "OK: validate"
 
 runtime-candidates-validate:
@@ -23,3 +23,9 @@ runtime-asset-validate: runtime-asset-emit
 
 runtime-sidecars-validate: runtime-asset-emit
 	./.venv/bin/python tools/validate_runtime_sidecars.py 2>/dev/null || python3 tools/validate_runtime_sidecars.py
+
+runtime-promotion-manifest-emit: runtime-asset-emit
+	./.venv/bin/python tools/emit_runtime_promotion_manifest.py 2>/dev/null || python3 tools/emit_runtime_promotion_manifest.py
+
+runtime-promotion-manifest-validate: runtime-promotion-manifest-emit
+	./.venv/bin/python tools/validate_runtime_promotion_manifest.py 2>/dev/null || python3 tools/validate_runtime_promotion_manifest.py
