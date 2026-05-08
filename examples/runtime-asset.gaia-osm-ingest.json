@@ -1,0 +1,65 @@
+{
+  "apiVersion": "lattice.socioprophet.dev/v1",
+  "kind": "RuntimeAsset",
+  "metadata": {
+    "name": "gaia-osm-ingest",
+    "version": "0.1.0",
+    "createdAt": "2026-05-08T00:00:00Z",
+    "labels": {
+      "prophetArtifact": "gaia.bounded-osm-ingest",
+      "ownerRepo": "SocioProphet/gaia-world-model",
+      "safetyClass": "bounded"
+    }
+  },
+  "spec": {
+    "runtimeClass": "cli",
+    "languages": ["python", "shell"],
+    "channels": [
+      {"name": "nixpkgs", "type": "nixpkgs", "trusted": true},
+      {"name": "conda-forge", "type": "conda-forge", "trusted": true},
+      {"name": "prophet-core", "type": "prophet", "trusted": true}
+    ],
+    "build": {
+      "system": "mixed",
+      "entrypoint": "runtimes/gaia-osm-ingest/flake.nix",
+      "lockfile": "runtimes/gaia-osm-ingest/flake.lock",
+      "sourceRef": "git://github.com/SocioProphet/gaia-world-model#main:artifacts/gaia-bounded-osm-ingest",
+      "builderId": "lattice-forge-gaia-builder"
+    },
+    "artifacts": [
+      {"name": "runtime-image", "role": "oci-image", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+      {"name": "runtime-sbom", "role": "sbom", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+      {"name": "runtime-lockfile", "role": "lockfile", "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"}
+    ],
+    "provenance": {
+      "attestations": ["slsa", "in-toto"],
+      "sourceRefs": [
+        "git://github.com/SocioProphet/gaia-world-model#main:artifacts/gaia-bounded-osm-ingest",
+        "artifact://gaia.bounded-osm-ingest@0.1.0"
+      ],
+      "builderId": "lattice-forge-gaia-builder"
+    },
+    "sbom": {
+      "formats": ["spdx", "cyclonedx"],
+      "digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    "signature": {
+      "type": "sigstore",
+      "bundleRef": "gaia-osm-ingest-demo-bundle",
+      "digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    "scan": {"vulnerability": "not-run", "license": "not-run", "policy": "not-run"},
+    "policy": {"network": "restricted", "secrets": "none", "accelerators": ["cpu"], "defaultIsolation": "container"},
+    "compatibility": {
+      "surfaces": [
+        "lattice-studio",
+        "beam",
+        "agentplane",
+        "sourceos-user",
+        "prophet-platform"
+      ]
+    },
+    "telemetry": {"traceRequired": true, "metricSet": ["build-duration", "scan-duration", "artifact-size", "promotion-result"]},
+    "promotion": {"channel": "dev", "rollbackRef": "runtime/gaia-osm-ingest/0.0.0"}
+  }
+}
