@@ -17,6 +17,9 @@ from pathlib import Path
 SHA256_RE = re.compile(r"^sha256:[a-fA-F0-9]{64}$")
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9.-]{1,62}$")
 VERSION_RE = re.compile(r"^v?[0-9]+\.[0-9]+\.[0-9]+([-.+][A-Za-z0-9.-]+)?$")
+PROPHET_ARTIFACT_RE = re.compile(r"^[a-z][a-z0-9._-]{0,62}$")
+OWNER_REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+SAFETY_CLASSES = {"bounded", "critical", "experimental", "deprecated"}
 RUNTIME_CLASSES = {"notebook", "agent", "ray", "beam", "cli", "system-tool", "base-image"}
 LANGUAGES = {"python", "r", "go", "rust", "javascript", "typescript", "shell", "sql"}
 CHANNEL_TYPES = {"nixpkgs", "conda-forge", "prophet", "pypi", "go-module", "oci", "other"}
@@ -76,6 +79,27 @@ def validate_document(doc: dict) -> None:
     require(NAME_RE.match(metadata.get("name", "")) is not None, "metadata.name is invalid")
     require(VERSION_RE.match(metadata.get("version", "")) is not None, "metadata.version is invalid")
     require_string(metadata.get("createdAt"), "metadata.createdAt")
+
+    labels = metadata.get("labels")
+    if labels is not None:
+        require(isinstance(labels, dict), "metadata.labels must be an object")
+        for key, value in labels.items():
+            require(isinstance(value, str) and bool(value), f"metadata.labels.{key} must be a non-empty string")
+        if "prophetArtifact" in labels:
+            require(
+                PROPHET_ARTIFACT_RE.match(labels["prophetArtifact"]) is not None,
+                "metadata.labels.prophetArtifact is invalid (expected lowercase dotted identifier)",
+            )
+        if "ownerRepo" in labels:
+            require(
+                OWNER_REPO_RE.match(labels["ownerRepo"]) is not None,
+                "metadata.labels.ownerRepo is invalid (expected <owner>/<repo>)",
+            )
+        if "safetyClass" in labels:
+            require(
+                labels["safetyClass"] in SAFETY_CLASSES,
+                f"metadata.labels.safetyClass is invalid (allowed: {sorted(SAFETY_CLASSES)})",
+            )
 
     spec = doc.get("spec")
     require(isinstance(spec, dict), "spec must be an object")

@@ -1,6 +1,7 @@
 README.md
 pyproject.toml
 src/lattice_forge/__init__.py
+src/lattice_forge/emit_runtime_profile.py
 src/lattice_forge/evidence_summary.py
 src/lattice_forge/validate_runtime_asset.py
 src/lattice_forge/validate_runtime_evidence.py
@@ -9,5 +10,6 @@ src/lattice_forge.egg-info/SOURCES.txt
 src/lattice_forge.egg-info/dependency_links.txt
 src/lattice_forge.egg-info/entry_points.txt
 src/lattice_forge.egg-info/top_level.txt
+tests/test_emit_runtime_profile.py
 tests/test_evidence_summary.py
 tests/test_runtime_asset_validator.py

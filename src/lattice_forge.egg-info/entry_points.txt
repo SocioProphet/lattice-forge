@@ -1,2 +1,3 @@
 [console_scripts]
+lattice-forge-emit-runtime-profile = lattice_forge.emit_runtime_profile:main
 lattice-forge-evidence-summary = lattice_forge.evidence_summary:main

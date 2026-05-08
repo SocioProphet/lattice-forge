@@ -1,0 +1,63 @@
+{
+  "apiVersion": "lattice.socioprophet.dev/v1",
+  "kind": "RuntimeAsset",
+  "metadata": {
+    "name": "notebook-to-artifact",
+    "version": "0.1.0",
+    "createdAt": "2026-05-08T00:00:00Z",
+    "labels": {
+      "prophetArtifact": "prophet.notebook-promotion",
+      "ownerRepo": "SocioProphet/prophet-platform",
+      "safetyClass": "bounded"
+    }
+  },
+  "spec": {
+    "runtimeClass": "cli",
+    "languages": ["python", "shell"],
+    "channels": [
+      {"name": "nixpkgs", "type": "nixpkgs", "trusted": true},
+      {"name": "conda-forge", "type": "conda-forge", "trusted": true},
+      {"name": "prophet-core", "type": "prophet", "trusted": true}
+    ],
+    "build": {
+      "system": "mixed",
+      "entrypoint": "runtimes/notebook-to-artifact/flake.nix",
+      "lockfile": "runtimes/notebook-to-artifact/flake.lock",
+      "sourceRef": "git://github.com/SocioProphet/prophet-platform#main:runtimes/notebook-to-artifact",
+      "builderId": "lattice-forge-demo-builder"
+    },
+    "artifacts": [
+      {"name": "runtime-image", "role": "oci-image", "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"},
+      {"name": "runtime-sbom", "role": "sbom", "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"},
+      {"name": "runtime-lockfile", "role": "lockfile", "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"}
+    ],
+    "provenance": {
+      "attestations": ["slsa", "in-toto"],
+      "sourceRefs": [
+        "git://github.com/SocioProphet/prophet-platform#main:runtimes/notebook-to-artifact"
+      ],
+      "builderId": "lattice-forge-demo-builder"
+    },
+    "sbom": {
+      "formats": ["spdx", "cyclonedx"],
+      "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    "signature": {
+      "type": "sigstore",
+      "bundleRef": "notebook-to-artifact-demo-bundle",
+      "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    },
+    "scan": {"vulnerability": "not-run", "license": "not-run", "policy": "not-run"},
+    "policy": {"network": "restricted", "secrets": "scoped", "accelerators": ["cpu"], "defaultIsolation": "container"},
+    "compatibility": {
+      "surfaces": [
+        "lattice-studio",
+        "agentplane",
+        "sourceos-user",
+        "prophet-platform"
+      ]
+    },
+    "telemetry": {"traceRequired": true, "metricSet": ["build-duration", "scan-duration", "artifact-size", "promotion-result"]},
+    "promotion": {"channel": "dev", "rollbackRef": "runtime/notebook-to-artifact/0.0.0"}
+  }
+}
