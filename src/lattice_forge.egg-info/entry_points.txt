@@ -1,0 +1,2 @@
+[console_scripts]
+lattice-forge-evidence-summary = lattice_forge.evidence_summary:main
