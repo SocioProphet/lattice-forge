@@ -8,7 +8,7 @@
   "properties": {
     "apiVersion": {"const": "lattice.socioprophet.dev/v1"},
     "kind": {"const": "RuntimeAsset"},
-    "metadata": {"type": "object", "additionalProperties": false, "required": ["name", "version", "createdAt"], "properties": {"name": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{1,62}$"}, "version": {"type": "string", "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+([-.+][A-Za-z0-9.-]+)?$"}, "createdAt": {"type": "string", "format": "date-time"}, "labels": {"type": "object", "additionalProperties": {"type": "string"}}}},
+    "metadata": {"type": "object", "additionalProperties": false, "required": ["name", "version", "createdAt"], "properties": {"name": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{1,62}$"}, "version": {"type": "string", "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+([-.+][A-Za-z0-9.-]+)?$"}, "createdAt": {"type": "string", "format": "date-time"}, "labels": {"type": "object", "additionalProperties": {"type": "string"}, "properties": {"prophetArtifact": {"type": "string", "pattern": "^[a-z][a-z0-9._-]{0,62}$", "description": "ProphetArtifact execution-contract identifier this runtime backs (e.g. gaia.bounded-osm-ingest)"}, "ownerRepo": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$", "description": "GitHub owner/repo that owns the ProphetArtifact (e.g. SocioProphet/gaia-world-model)"}, "safetyClass": {"type": "string", "enum": ["bounded", "critical", "experimental", "deprecated"], "description": "Safety classification for execution gating"}}}}},
     "spec": {
       "type": "object",
       "additionalProperties": false,

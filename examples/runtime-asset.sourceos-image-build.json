@@ -1,0 +1,61 @@
+{
+  "apiVersion": "lattice.socioprophet.dev/v1",
+  "kind": "RuntimeAsset",
+  "metadata": {
+    "name": "sourceos-image-build",
+    "version": "0.1.0",
+    "createdAt": "2026-05-08T00:00:00Z",
+    "labels": {
+      "prophetArtifact": "sourceos.image-build",
+      "ownerRepo": "SourceOS-Linux/sourceos-boot",
+      "safetyClass": "critical"
+    }
+  },
+  "spec": {
+    "runtimeClass": "system-tool",
+    "languages": ["shell", "python"],
+    "channels": [
+      {"name": "nixpkgs", "type": "nixpkgs", "trusted": true},
+      {"name": "prophet-core", "type": "prophet", "trusted": true}
+    ],
+    "build": {
+      "system": "nix",
+      "entrypoint": "runtimes/sourceos-image-build/flake.nix",
+      "lockfile": "runtimes/sourceos-image-build/flake.lock",
+      "sourceRef": "git://github.com/SourceOS-Linux/sourceos-boot#main:runtimes/image-build",
+      "builderId": "lattice-forge-sourceos-builder"
+    },
+    "artifacts": [
+      {"name": "build-tool-image", "role": "oci-image", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+      {"name": "build-tool-sbom", "role": "sbom", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+      {"name": "build-tool-lockfile", "role": "lockfile", "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"}
+    ],
+    "provenance": {
+      "attestations": ["slsa", "in-toto"],
+      "sourceRefs": [
+        "git://github.com/SourceOS-Linux/sourceos-boot#main:runtimes/image-build"
+      ],
+      "builderId": "lattice-forge-sourceos-builder"
+    },
+    "sbom": {
+      "formats": ["spdx", "cyclonedx"],
+      "digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    "signature": {
+      "type": "sigstore",
+      "bundleRef": "sourceos-image-build-demo-bundle",
+      "digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    "scan": {"vulnerability": "not-run", "license": "not-run", "policy": "not-run"},
+    "policy": {"network": "none", "secrets": "none", "accelerators": ["cpu"], "defaultIsolation": "vm"},
+    "compatibility": {
+      "surfaces": [
+        "sourceos-user",
+        "sourceos-agent",
+        "prophet-platform"
+      ]
+    },
+    "telemetry": {"traceRequired": true, "metricSet": ["build-duration", "scan-duration", "artifact-size", "promotion-result"]},
+    "promotion": {"channel": "dev", "rollbackRef": "runtime/sourceos-image-build/0.0.0"}
+  }
+}
